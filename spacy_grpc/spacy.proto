@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package spaCy;
+
+service SpaCy {
+  rpc Tag (Request) returns (Reply) {}
+  rpc NER (Request) returns (Reply) {}
+}
+
+message Request {
+  string sentence = 1;
+}
+
+message Token {
+  string text = 1;
+  string tag = 2;
+  string lemma = 3;
+  string entity = 4;
+}
+
+message Reply {
+  repeated Token tokens = 1;
+}
