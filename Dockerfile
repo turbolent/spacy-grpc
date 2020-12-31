@@ -1,8 +1,18 @@
-FROM python:3.7-slim
+FROM python:3.7-slim-stretch as base
+
+FROM base as builder
+
 RUN pip install pipenv
-COPY Pipfile* /tmp/
-RUN cd /tmp && pipenv lock --requirements > requirements.txt
-RUN pip install -r /tmp/requirements.txt
-COPY . /app
+
+WORKDIR /build
+COPY Pipfile* /build/
+
+RUN bash -c 'PIPENV_VENV_IN_PROJECT=1 pipenv sync -v'
+
+FROM base as app
+
 WORKDIR /app
-CMD ["python", "-m", "spacy_grpc"]
+COPY --from=builder /build /app/
+COPY . /app/
+
+CMD .venv/bin/python -mspacy_grpc
