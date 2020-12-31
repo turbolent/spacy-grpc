@@ -7,7 +7,7 @@ RUN pip install pipenv
 WORKDIR /build
 COPY Pipfile* /build/
 
-RUN bash -c 'PIPENV_VENV_IN_PROJECT=1 pipenv sync -v'
+RUN bash -c 'PIPENV_VENV_IN_PROJECT=1 pipenv sync'
 
 FROM base as app
 
