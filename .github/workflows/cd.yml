@@ -5,7 +5,7 @@ on:
     branches: master
 
 jobs:
-  login:
+  Build and push:
     runs-on: ubuntu-latest
     steps:
 
