@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spacy-grpc
+spec:
+  selector:
+    matchLabels:
+      app: spacy-grpc
+  template:
+    metadata:
+      labels:
+        app: spacy-grpc
+    spec:
+      containers:
+      - name: spacy-grpc
+        image: spacy-grpc
+        ports:
+        - containerPort: 9090
+        env:
+        - name: "SPACY_PORT"
+          value: "9090"
