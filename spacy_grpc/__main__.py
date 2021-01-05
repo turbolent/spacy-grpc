@@ -1,3 +1,4 @@
+import os
 import logging
 from concurrent import futures
 from typing import Optional
@@ -65,7 +66,7 @@ class SpaCy(spacy_pb2_grpc.SpaCyServicer):
 @click.option(
     '--port',
     type=int,
-    default=9090,
+    default=lambda: int(os.environ.get('PORT', '9090')),
     show_default=True
 )
 @click.option(
