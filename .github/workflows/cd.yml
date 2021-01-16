@@ -33,7 +33,7 @@ jobs:
       run: pipenv install
 
     - name: Run tests
-      run: pipenv run pytest tests
+      run: pipenv run pytest
 
   build_and_push:
     name: "Build and Push"
