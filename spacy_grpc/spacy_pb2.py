@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='spaCy',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x16spacy_grpc/spacy.proto\x12\x05spaCy\"\x1b\n\x07Request\x12\x10\n\x08sentence\x18\x01 \x01(\t\"A\n\x05Token\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0b\n\x03tag\x18\x02 \x01(\t\x12\r\n\x05lemma\x18\x03 \x01(\t\x12\x0e\n\x06\x65ntity\x18\x04 \x01(\t\"%\n\x05Reply\x12\x1c\n\x06tokens\x18\x01 \x03(\x0b\x32\x0c.spaCy.Token2U\n\x05SpaCy\x12%\n\x03Tag\x12\x0e.spaCy.Request\x1a\x0c.spaCy.Reply\"\x00\x12%\n\x03NER\x12\x0e.spaCy.Request\x1a\x0c.spaCy.Reply\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x16spacy_grpc/spacy.proto\x12\x05spaCy\"\x1b\n\x07Request\x12\x10\n\x08sentence\x18\x01 \x01(\t\"`\n\x05Token\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0b\n\x03tag\x18\x02 \x01(\t\x12\r\n\x05lemma\x18\x03 \x01(\t\x12\x0e\n\x06\x65ntity\x18\x04 \x01(\t\x12\r\n\x05index\x18\x05 \x01(\r\x12\x0e\n\x06length\x18\x06 \x01(\r\"%\n\x05Reply\x12\x1c\n\x06tokens\x18\x01 \x03(\x0b\x32\x0c.spaCy.Token2U\n\x05SpaCy\x12%\n\x03Tag\x12\x0e.spaCy.Request\x1a\x0c.spaCy.Reply\"\x00\x12%\n\x03NER\x12\x0e.spaCy.Request\x1a\x0c.spaCy.Reply\"\x00\x62\x06proto3'
 )
 
 
@@ -90,6 +90,20 @@ _TOKEN = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='index', full_name='spaCy.Token.index', index=4,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='length', full_name='spaCy.Token.length', index=5,
+      number=6, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -103,7 +117,7 @@ _TOKEN = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=62,
-  serialized_end=127,
+  serialized_end=158,
 )
 
 
@@ -133,8 +147,8 @@ _REPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=129,
-  serialized_end=166,
+  serialized_start=160,
+  serialized_end=197,
 )
 
 _REPLY.fields_by_name['tokens'].message_type = _TOKEN
@@ -172,8 +186,8 @@ _SPACY = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=168,
-  serialized_end=253,
+  serialized_start=199,
+  serialized_end=284,
   methods=[
   _descriptor.MethodDescriptor(
     name='Tag',

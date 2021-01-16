@@ -33,7 +33,9 @@ class SpaCy(spacy_pb2_grpc.SpaCyServicer):
                 spacy_pb2.Token(
                     text=element.orth_,
                     tag=element.tag_,
-                    lemma=self._lemma(element)
+                    lemma=self._lemma(element),
+                    index=element.idx,
+                    length=len(element),
                 )
                 for element in document
             ]
@@ -62,6 +64,12 @@ class SpaCy(spacy_pb2_grpc.SpaCyServicer):
         )
 
 
+def load_tagging_language(language: str) -> Language:
+    tagging_nlp: Language = spacy.load(language, disable=['ner'])
+    tagging_nlp.remove_pipe('parser')
+    return tagging_nlp
+
+
 @click.command()
 @click.option(
     '--port',
@@ -79,8 +87,7 @@ def serve(port: int, language: str) -> None:
     logging.basicConfig(level=logging.INFO)
     logging.info("Loading ...")
 
-    tagging_nlp: Language = spacy.load(language, disable=['ner'])
-    tagging_nlp.remove_pipe('parser')
+    tagging_nlp = load_tagging_language(language)
     logging.info("Tagging pipeline: %s", ', '.join(tagging_nlp.pipe_names))
 
     ner_nlp: Language = spacy.load(language)
@@ -92,7 +99,6 @@ def serve(port: int, language: str) -> None:
     server.start()
     logging.info("Serving on port %d ...", port)
     server.wait_for_termination()
-
 
 if __name__ == '__main__':
     serve(auto_envvar_prefix='SPACY')

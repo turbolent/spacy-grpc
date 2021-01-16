@@ -16,6 +16,8 @@ message Token {
   string tag = 2;
   string lemma = 3;
   string entity = 4;
+  uint32 index = 5;
+  uint32 length = 6;
 }
 
 message Reply {
