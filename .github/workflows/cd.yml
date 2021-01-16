@@ -5,7 +5,38 @@ on:
     branches: master
 
 jobs:
-  Build and push:
+
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
+    - name: Install pipenv
+      run: pip install pipenv
+
+    - name: Cache pipenv virtualenv
+      id: cache-pipenv
+      uses: actions/cache@v1
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+
+    - name: Install dependencies
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run: pipenv install
+
+    - name: Run tests
+      run: pipenv run pytest tests
+
+  build_and_push:
+    name: "Build and Push"
     runs-on: ubuntu-latest
     steps:
 
