@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 grpcio-tools = "==1.29.0"
 mypy-protobuf = "==1.21"
+pytest = "==6.2.1"
+grpcio-testing = "==1.29.0"
 
 [packages]
 grpcio = "==1.29.0"
