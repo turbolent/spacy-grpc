@@ -54,12 +54,14 @@ class SpaCy(spacy_pb2_grpc.SpaCyServicer):
         return spacy_pb2.Reply(
             tokens=[
                 spacy_pb2.Token(
-                    text=token.orth_,
-                    tag=token.tag_,
-                    lemma=self._lemma(token),
-                    entity=self._entity(token)
+                    text=element.orth_,
+                    tag=element.tag_,
+                    lemma=self._lemma(element),
+                    entity=self._entity(element),
+                    index=element.idx,
+                    length=len(element),
                 )
-                for token in document
+                for element in document
             ]
         )
 
