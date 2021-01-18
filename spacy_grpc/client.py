@@ -2,6 +2,7 @@ from typing import Callable
 
 import click
 import grpc
+from tabulate import tabulate
 
 import spacy_pb2
 import spacy_pb2_grpc
@@ -16,8 +17,18 @@ def call(host: str, port: int, sentence: str, handler: Handler):
         client = spacy_pb2_grpc.SpaCyStub(channel)
         request = spacy_pb2.Request(sentence=sentence)
         reply = handler(client, request)
-        for token in reply.tokens:
-            print(token.text, token.tag, token.lemma, token.entity)
+        rows = [
+            [
+                token.text,
+                token.tag,
+                token.lemma,
+                token.entity,
+                token.index,
+                token.length
+            ] for token in reply.tokens
+        ]
+
+        print(tabulate(rows, headers=["Text", "Tag", "Lemma", "Entity", "Index", "Length"]))
 
 
 @click.group()
